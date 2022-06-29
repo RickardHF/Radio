@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadioFEAPI", "RadioFEAPI\RadioFEAPI.csproj", "{42A1642E-BABB-49F3-9302-84B1A149A742}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{43C03881-2CCA-4396-BAB3-4D70F54F7663}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{43C03881-2CCA-4396-BAB3-4D70F54F7663}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioFETestApp", "RadioFETestApp\RadioFETestApp.csproj", "{DF5F8370-78E6-4875-9DB6-F7B0F0DE3A95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{43C03881-2CCA-4396-BAB3-4D70F54F7663}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43C03881-2CCA-4396-BAB3-4D70F54F7663}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43C03881-2CCA-4396-BAB3-4D70F54F7663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF5F8370-78E6-4875-9DB6-F7B0F0DE3A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF5F8370-78E6-4875-9DB6-F7B0F0DE3A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF5F8370-78E6-4875-9DB6-F7B0F0DE3A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF5F8370-78E6-4875-9DB6-F7B0F0DE3A95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,61 @@
+﻿@page "/"
+
+@using RadioFETestApp.Data
+@using RadioFETestApp.Model
+@inject ApiConnector ApiConnector
+
+<PageTitle>Index</PageTitle>
+
+<h1>Test App for </h1>
+
+<EditForm Model="@leftObject" OnValidSubmit="@HandleLeftSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <label for="id">Id</label>
+    <InputNumber id="id" @bind-Value="leftObject.Id"/>
+    <label for="input">Input</label>
+    <InputText id="input" @bind-Value="leftObject.Input"/>
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+<EditForm Model="@rightObject" OnValidSubmit="@HandleRightSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <label for="id">Id</label>
+    <InputNumber id="id" @bind-Value="rightObject.Id"/>
+    <label for="input">Input</label>
+    <InputText id="input" @bind-Value="rightObject.Input"/>
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+<EditForm OnValidSubmit="@HandleGetDiff" Model="@id">
+    <label for="id">Id</label>
+    <InputNumber id="id" @bind-Value="id"/>
+    <button type="submit">Submit</button>
+</EditForm>
+
+
+@code {
+    private InputObject leftObject = new();
+    private InputObject rightObject = new();
+    private int id;
+
+    public async Task HandleLeftSubmit()
+    {
+        var result = await ApiConnector.SetLeftSide(leftObject);
+    }
+
+    public async Task HandleRightSubmit()
+    {
+        var result = await ApiConnector.SetRightSide(rightObject);
+    }
+
+    public async Task HandleGetDiff()
+    {
+        var result = await ApiConnector.Get(id);
+    }
+}

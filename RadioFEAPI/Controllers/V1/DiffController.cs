@@ -20,20 +20,15 @@ namespace RadioFEAPI.Controllers.V1
         }
 
         [HttpPost("{id}/left")]
-        public async Task<IActionResult> SetLeftValue([FromRoute] int id, [FromBody] string input)
+        public async Task<IActionResult> SetLeftValue([FromRoute] int id, [FromBody] InputObject input)
         {
             try
             {
-                // Decode input from Base64 to string
-                var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(input));
-                // Map string to InputObject which has a property named what we expect
-                var inputObject = JsonConvert.DeserializeObject<InputObject>(decoded);
-
                 // Call the service and return answer
                 return new OkObjectResult(await _service.Set(new ComparisonInsertion
                 {
                     Id = id,
-                    Input = inputObject.Input,
+                    Input = input.Input,
                     Side = SideToSet.Left
                 }));
 
@@ -44,20 +39,15 @@ namespace RadioFEAPI.Controllers.V1
         }
 
         [HttpPost("{id}/right")]
-        public async Task<IActionResult> SetRightValue([FromRoute] int id, [FromBody] string input)
+        public async Task<IActionResult> SetRightValue([FromRoute] int id, [FromBody] InputObject input)
         {
             try
             {
-                // Decode input from Base64 to string
-                var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(input));
-                // Map string to InputObject which has a property named what we expect
-                var inputObject = JsonConvert.DeserializeObject<InputObject>(decoded);
-
                 // Call the service and return answer
                 return new OkObjectResult(await _service.Set(new ComparisonInsertion
                 {
                     Id = id,
-                    Input = inputObject.Input,
+                    Input = input.Input,
                     Side = SideToSet.Right
                 }));
 
