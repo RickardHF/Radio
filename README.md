@@ -45,5 +45,16 @@ The diff check for the files is quite quick solution that should be changed to a
 
 I don't see a good use for encoding the data into the API to base64 (disclaimer : I don't know the usecase and could be wrong) however it adds extra overlay and it's easier to work with json, both for BE and FE.
 
-If one is afraid of sniffing then it would be better to encode the data with some encryption method
+If one is afraid of sniffing then it would be better to encode the data with some encryption method.
+
+Alternatively some structure like this:
+```
+{
+  "encryptedData": "<Base64 (or other) string>"
+}
+```
+
+### Retrive currently "saved" data
+
+Currently there is no possibility to fetch the data that is stored for either left nor right side from the API, which could be useful for the user.
 
