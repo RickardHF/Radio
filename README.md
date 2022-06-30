@@ -60,4 +60,4 @@ Currently there is no possibility to fetch the data that is stored for either le
 
 ### Support for different encodings
 
-Currently UTF8 is the onøy supported encoding
+Currently UTF8 is the only supported encoding
