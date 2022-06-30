@@ -4,9 +4,9 @@
 
 In order to run this you need to be able to run .NET6 
 
-If you want to test the api with the test client you need to run both the "\RadioFEAPI\RadioFEAPI\RadioFEAPI.csproj" and the "\RadioFEAPI\RadioFETestApp\RadioFETestApp.csproj" at the same time. 
+If you want to test the api with the test client you need to run both the `\RadioFEAPI\RadioFEAPI\RadioFEAPI.csproj` and the `\RadioFEAPI\RadioFETestApp\RadioFETestApp.csproj` at the same time. 
 
-Make sure that the port number in the uri for the variable "RadioFEApi" under "ConnectionStrings" in file "\RadioFEAPI\RadioFETestApp\appsettings.json" is set to the correct port number. (This should be the same as is given to the "RadioFEAPI" when running.
+Make sure that the port number in the uri for the variable `RadioFEApi` under `ConnectionStrings` in file `\RadioFEAPI\RadioFETestApp\appsettings.json` is set to the correct port number. (This should be the same as is given to the `RadioFEAPI` when running.
 
 ## Disclaimers 
 
@@ -58,3 +58,6 @@ Alternatively some structure like this:
 
 Currently there is no possibility to fetch the data that is stored for either left nor right side from the API, which could be useful for the user.
 
+### Support for different encodings
+
+Currently UTF8 is the onøy supported encoding
