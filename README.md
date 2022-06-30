@@ -15,7 +15,7 @@ Especcially the test application has not been given much attention. This is ofco
 The test api is intended to be used in this fashon: using the same ID for all the available tasks (setting left/right values and getting difference). Also when one has submitted a value, this should not be changed before one do the diff check. The visible representation is dependent on these values remaining the same as what one has submitted in order for it to display correctly.
 
 I was not quite sure what is the intended purpose of the result of the diff check, which could have changed how I implemented it. 
-I decided to return the parts of each text which are the same (difference can be deducted from that). 
+I decided to return the parts of each text which are the same (difference can be deducted from that). The logic of what parts are the same should be improved also
 
 ## Improvement
 
