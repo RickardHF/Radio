@@ -38,7 +38,7 @@ namespace RadioFETestApp.Data
             return returned.Value<string>("message");
         }
 
-        public async Task<string> Get(int id)
+        public async Task<DiffResult> Get(int id)
         {
             try
             {
@@ -49,14 +49,14 @@ namespace RadioFETestApp.Data
 
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                var returned = JsonConvert.DeserializeObject<JObject>(responseString);
-
-                return returned.Value<string>("message");
-
+                return JsonConvert.DeserializeObject<DiffResult>(responseString);
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                return new()
+                {
+                    Message = ex.Message
+                };
             }
         }
 

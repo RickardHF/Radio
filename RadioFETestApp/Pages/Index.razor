@@ -8,41 +8,95 @@
 
 <h1>Test App for </h1>
 
-<EditForm Model="@leftObject" OnValidSubmit="@HandleLeftSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+<div class="both-inputs">
+    <EditForm Model="@leftObject" OnValidSubmit="@HandleLeftSubmit" class="input-container">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <h3>Left Side</h3>
+        <hr />
+        <div class="form-group row">
+            <label for="id">Id</label>
+            <InputNumber id="id" @bind-Value="leftObject.Id"/>
+        </div>
+        <div class="form-group row">
+            <label for="input">Input</label>
+            <InputText id="input" @bind-Value="leftObject.Input"/>
+        </div>
+    
 
-    <label for="id">Id</label>
-    <InputNumber id="id" @bind-Value="leftObject.Id"/>
-    <label for="input">Input</label>
-    <InputText id="input" @bind-Value="leftObject.Input"/>
+        <button type="submit">Submit</button>
+    </EditForm>
 
-    <button type="submit">Submit</button>
-</EditForm>
+    <EditForm Model="@rightObject" OnValidSubmit="@HandleRightSubmit" class="input-container">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <h3>Right Side</h3>
+        <hr/>
+        <div class="form-group row">
+            <label for="id">Id</label>
+            <InputNumber id="id" @bind-Value="rightObject.Id"/>
+        </div>
 
-<EditForm Model="@rightObject" OnValidSubmit="@HandleRightSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+    
+        <div class="form-group row">
+            <label for="input">Input</label>
+            <InputText id="input" @bind-Value="rightObject.Input"/>
+        </div>
 
-    <label for="id">Id</label>
-    <InputNumber id="id" @bind-Value="rightObject.Id"/>
-    <label for="input">Input</label>
-    <InputText id="input" @bind-Value="rightObject.Input"/>
 
-    <button type="submit">Submit</button>
-</EditForm>
+        <button type="submit">Submit</button>
+    </EditForm>
+</div>
+
 
 <EditForm OnValidSubmit="@HandleGetDiff" Model="@id">
+    <h3>Get Diff</h3>
     <label for="id">Id</label>
     <InputNumber id="id" @bind-Value="id"/>
     <button type="submit">Submit</button>
 </EditForm>
+
+@if(result != null){
+    <p>@result?.Message</p>
+}
+@if(@result?.DifferencesLeft != null && @result.DifferencesLeft.Any()  && ! string.IsNullOrEmpty(leftObject.Input)  && ! string.IsNullOrEmpty(rightObject.Input)){
+    <h4>LeftSide</h4>
+    <div class="comparison-text">
+        @foreach (var item in GetLeftDiff())
+        {
+            if (item.Overlapp)
+            {
+                <p class="overlapping input-text">@item.Data</p>
+            } else
+            {
+                <p class="input-text not-overlapping">@item.Data</p>
+            }
+        }
+    </div>
+    <h4>RightSide</h4>
+    <div class="comparison-text">
+        @foreach (var item in GetRightDiff())
+        {
+            if (item.Overlapp)
+            {
+                <p class="overlapping input-text">@item.Data</p>
+            } else
+            {
+                <p class="input-text not-overlapping">@item.Data</p>
+            }
+        }
+    </div>
+}
 
 
 @code {
     private InputObject leftObject = new();
     private InputObject rightObject = new();
     private int id;
+
+    private List<dynamic> LeftDisplay = new();
+
+    private DiffResult result;
 
     public async Task HandleLeftSubmit()
     {
@@ -54,8 +108,86 @@
         var result = await ApiConnector.SetRightSide(rightObject);
     }
 
+    private List<dynamic> GetLeftDiff()
+    {
+        if (result.DifferencesLeft == null || ! result.DifferencesLeft.Any()) return new();
+        var index = 0;
+
+        var diffs = new List<dynamic>();
+
+        foreach(var diff in result.DifferencesLeft)
+        {
+            if(diff.Index > index)
+            {
+                diffs.Add(new
+                {
+                    Overlapp = false,
+                    Data = leftObject.Input.Substring(index, diff.Index)
+                });
+            } else if(index <= diff.Index)
+            {
+                diffs.Add(new
+                {
+                    Overlapp = true,
+                    Data = leftObject.Input.Substring(diff.Index, diff.Index + diff.Length)
+                });
+            }
+            index = diff.Index + diff.Length;
+        }
+
+        if(index < leftObject.Input.Length - 1)
+        {
+            diffs.Add(new
+            {
+                Overlapp = false,
+                Data = leftObject.Input.Substring(index)
+            });
+        }
+
+        return diffs;
+    }
+
+    private List<dynamic> GetRightDiff()
+    {
+        if (result.DifferencesRight == null || ! result.DifferencesRight.Any()) return new();
+        var index = 0;
+
+        var diffs = new List<dynamic>();
+
+        foreach(var diff in result.DifferencesRight)
+        {
+            if(diff.Index > index)
+            {
+                diffs.Add(new
+                {
+                    Overlapp = false,
+                    Data = rightObject.Input.Substring(index, diff.Index)
+                });
+            } else if(index <= diff.Index)
+            {
+                diffs.Add(new
+                {
+                    Overlapp = true,
+                    Data = rightObject.Input.Substring(diff.Index, diff.Index + diff.Length)
+                });
+            }
+            index = diff.Index + diff.Length;
+        }
+
+        if(index < rightObject.Input.Length - 1)
+        {
+            diffs.Add(new
+            {
+                Overlapp = false,
+                Data = rightObject.Input.Substring(index)
+            });
+        }
+
+        return diffs;
+    }
+
     public async Task HandleGetDiff()
     {
-        var result = await ApiConnector.Get(id);
+        result = await ApiConnector.Get(id);
     }
 }

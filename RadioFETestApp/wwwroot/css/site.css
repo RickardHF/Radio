@@ -1,7 +1,47 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+.input-container {
+    width: 45%;
+    margin: 2rem
+}
+
+.both-inputs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+}
+
+.input-text {
+    margin: 0;
+    padding: 0;
+}
+
+.not-overlapping {
+    color: darkred
+}
+
+.overlapping {
+    color: forestgreen;
+}
+
+.comparison-text {
+    display: flex
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
 html, body {
+    justify-content: center;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
 }
 
 h1:focus {
